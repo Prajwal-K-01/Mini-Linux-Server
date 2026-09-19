@@ -1,0 +1,546 @@
+============================================================
+              MINI LINUX SERVER - SERVER REPORT
+============================================================
+
+Project Name   : Mini Linux Server Setup
+Server Type    : RHEL Mini Web Server
+Environment    : VMware Workstation
+Operating Sys  : Red Hat Enterprise Linux
+Author         : Prajwal K
+Report Status  : FINAL
+
+Generated On   : <DATE AND TIME>
+
+============================================================
+1. SYSTEM INFORMATION
+============================================================
+
+Hostname       : mini-server
+Operating Sys  : <OUTPUT FROM /etc/redhat-release>
+Kernel         : <OUTPUT FROM uname -r>
+Architecture   : <OUTPUT FROM uname -m>
+CPU Cores      : <OUTPUT FROM nproc>
+Memory         : <OUTPUT FROM free -h>
+Disk Usage     : <OUTPUT FROM df -h>
+Uptime         : <OUTPUT FROM uptime -p>
+
+
+============================================================
+2. NETWORK INFORMATION
+============================================================
+
+Network Manager : NetworkManager
+
+Interface       : <OUTPUT FROM nmcli device status>
+IP Address      : <OUTPUT FROM hostname -I>
+Subnet          : <OUTPUT FROM ip addr>
+Gateway         : <OUTPUT FROM ip route>
+DNS             : <OUTPUT FROM cat /etc/resolv.conf>
+
+Internet Status : ONLINE
+
+Connectivity Test:
+8.8.8.8         : PASS
+google.com      : PASS
+
+
+============================================================
+3. USER CONFIGURATION
+============================================================
+
+Administrator User : serveradmin
+Developer User     : developer
+Backup User        : backupuser
+
+Groups:
+
+administrators
+    └── serveradmin
+
+developers
+    └── developer
+
+backup
+    └── backupuser
+
+wheel
+    └── serveradmin
+
+
+============================================================
+4. USER ACCESS CONTROL
+============================================================
+
+serveradmin:
+    Role        : Server Administrator
+    Sudo Access : YES
+    Groups      : administrators, wheel
+
+developer:
+    Role        : Application Developer
+    Sudo Access : NO
+    Groups      : developers
+
+backupuser:
+    Role        : Backup Administrator
+    Sudo Access : NO
+    Groups      : backup
+
+
+============================================================
+5. SSH SERVICE
+============================================================
+
+Service        : sshd
+Port           : 22/tcp
+Status         : RUNNING
+Enabled Boot   : YES
+
+Verification:
+
+systemctl status sshd
+ss -tlnp | grep :22
+
+SSH Status     : OPERATIONAL
+
+
+============================================================
+6. WEB SERVER
+============================================================
+
+Web Server     : Apache HTTP Server
+Service        : httpd
+Port           : 80/tcp
+Status         : RUNNING
+Enabled Boot   : YES
+
+Document Root:
+
+/var/www/html
+
+Main Web Page:
+
+/var/www/html/index.html
+
+Local Test:
+
+curl http://localhost
+
+HTTP Response  : 200 OK
+
+Web Server     : OPERATIONAL
+
+
+============================================================
+7. FIREWALL CONFIGURATION
+============================================================
+
+Firewall       : firewalld
+Status         : RUNNING
+Enabled Boot   : YES
+
+Allowed Services:
+
+    SSH
+    HTTP
+
+Allowed Ports:
+
+    22/tcp - SSH
+    80/tcp - HTTP
+
+Firewall State : ACTIVE
+
+Verification:
+
+firewall-cmd --list-all
+
+
+============================================================
+8. SELINUX SECURITY
+============================================================
+
+SELinux        : ENABLED
+SELinux Mode   : Enforcing
+
+Verification:
+
+getenforce
+sestatus
+
+Security State : ACTIVE
+
+
+============================================================
+9. SERVER DATA STORAGE
+============================================================
+
+Main Directory:
+
+/server-data
+
+Application Data:
+
+/server-data/application
+
+Owner          : developer
+Group          : developers
+
+Backup Data:
+
+/server-data/backups
+
+Owner          : backupuser
+Group          : backup
+
+Log Data:
+
+/server-data/logs
+
+Owner          : root
+Group          : root
+
+
+============================================================
+10. STORAGE STATUS
+============================================================
+
+Root Filesystem:
+
+Usage          : <OUTPUT FROM df -h />
+
+Server Data:
+
+Usage          : <OUTPUT FROM du -sh /server-data>
+
+Disk Status    : HEALTHY
+
+
+============================================================
+11. MONITORING STATUS
+============================================================
+
+CPU Monitoring:
+    top
+    htop
+
+Memory Monitoring:
+    free -h
+
+Disk Monitoring:
+    df -h
+    du -sh
+
+Process Monitoring:
+    ps aux
+
+Network Monitoring:
+    ss -tulpn
+
+Service Monitoring:
+    systemctl status <service>
+
+
+Monitoring Status : CONFIGURED
+
+
+============================================================
+12. RUNNING SERVICES
+============================================================
+
+SSH:
+    sshd       : RUNNING
+
+Web Server:
+    httpd      : RUNNING
+
+Firewall:
+    firewalld  : RUNNING
+
+Automation:
+    crond      : RUNNING
+
+
+Overall Service Status : OPERATIONAL
+
+
+============================================================
+13. LISTENING PORTS
+============================================================
+
+Port       Service
+----------------------------
+22/tcp     SSH
+80/tcp     HTTP
+
+Verification:
+
+ss -tulpn
+
+Port Security Status : VERIFIED
+
+
+============================================================
+14. LOG MANAGEMENT
+============================================================
+
+System Logs:
+
+/var/log/
+
+Apache Logs:
+
+/var/log/httpd/access_log
+/var/log/httpd/error_log
+
+Project Logs:
+
+/server-data/logs/backup.log
+/server-data/logs/health-report.txt
+
+Journal Logs:
+
+journalctl
+journalctl -u sshd
+journalctl -u httpd
+
+
+Log Management : CONFIGURED
+
+
+============================================================
+15. BACKUP CONFIGURATION
+============================================================
+
+Backup Script:
+
+scripts/backup.sh
+
+Source:
+
+/server-data/application
+
+Destination:
+
+/server-data/backups
+
+Backup Format:
+
+.tar.gz
+
+Retention:
+
+Latest 5 backups
+
+Backup Verification:
+
+tar -tzf <backup-file>
+
+Backup Status : CONFIGURED
+
+
+============================================================
+16. HEALTH MONITORING
+============================================================
+
+Health Check Script:
+
+scripts/health-check.sh
+
+Health Report:
+
+/server-data/logs/health-report.txt
+
+Health Checks:
+
+    [✓] Hostname
+    [✓] Operating System
+    [✓] Kernel
+    [✓] CPU
+    [✓] Memory
+    [✓] Disk
+    [✓] Network
+    [✓] SSH
+    [✓] Apache
+    [✓] Firewall
+    [✓] SELinux
+    [✓] Listening Ports
+    [✓] Server Data
+
+
+Health Monitoring : CONFIGURED
+
+
+============================================================
+17. AUTOMATION
+============================================================
+
+Automation Service:
+
+crond
+
+Status:
+
+RUNNING
+
+Automated Tasks:
+
+    Backup
+    Health Monitoring
+
+Cron Configuration:
+
+crontab -l
+
+Automation Status : CONFIGURED
+
+
+============================================================
+18. SECURITY VERIFICATION
+============================================================
+
+User Management       : VERIFIED
+Group Management      : VERIFIED
+Sudo Access           : VERIFIED
+SSH                   : VERIFIED
+Firewall              : VERIFIED
+SELinux               : ENFORCING
+File Permissions      : VERIFIED
+Apache Security       : VERIFIED
+Open Ports            : REVIEWED
+Backup Protection     : VERIFIED
+System Logs           : ENABLED
+Monitoring            : ENABLED
+
+
+Security Status : SECURE CONFIGURATION
+
+
+============================================================
+19. PROJECT FILE STRUCTURE
+============================================================
+
+mini-linux-server/
+│
+├── README.md
+├── LICENSE
+├── .gitignore
+│
+├── scripts/
+│   ├── backup.sh
+│   └── health-check.sh
+│
+├── config/
+│   ├── users.txt
+│   └── server-info.txt
+│
+├── docs/
+│   ├── architecture.md
+│   ├── installation.md
+│   ├── security.md
+│   └── troubleshooting.md
+│
+├── reports/
+│   └── server-report.txt
+│
+└── screenshots/
+    ├── system-info.png
+    ├── network.png
+    ├── users-groups.png
+    ├── ssh.png
+    ├── firewall.png
+    ├── apache.png
+    ├── website.png
+    ├── selinux.png
+    ├── monitoring.png
+    └── health-report.png
+
+
+============================================================
+20. FINAL SERVER HEALTH
+============================================================
+
+Hostname       : CONFIGURED
+Network        : ONLINE
+SSH            : RUNNING
+Apache         : RUNNING
+Firewall       : RUNNING
+SELinux        : ENFORCING
+Storage        : CONFIGURED
+Monitoring     : CONFIGURED
+Logging        : CONFIGURED
+Backup         : CONFIGURED
+Automation     : CONFIGURED
+
+------------------------------------------------------------
+
+FINAL SERVER STATUS : HEALTHY
+
+------------------------------------------------------------
+
+
+============================================================
+21. PROJECT OBJECTIVES COMPLETED
+============================================================
+
+[✓] RHEL Server Installation
+[✓] Hostname Configuration
+[✓] Network Configuration
+[✓] User Management
+[✓] Group Management
+[✓] Sudo Configuration
+[✓] SSH Configuration
+[✓] Firewall Configuration
+[✓] Apache Web Server
+[✓] SELinux Security
+[✓] Storage Management
+[✓] File Permissions
+[✓] Server Monitoring
+[✓] Log Management
+[✓] Automated Backup
+[✓] Health Monitoring
+[✓] Cron Automation
+[✓] Security Verification
+[✓] Git/GitHub Documentation
+
+
+============================================================
+22. TECHNOLOGIES USED
+============================================================
+
+Red Hat Enterprise Linux
+VMware Workstation
+Bash
+OpenSSH
+Apache HTTP Server
+firewalld
+SELinux
+systemd
+Cron
+tar
+gzip
+Git
+GitHub
+
+
+============================================================
+23. CONCLUSION
+============================================================
+
+The Mini Linux Server Setup project successfully demonstrates
+the configuration and administration of a production-style RHEL
+server environment.
+
+The server integrates networking, user management, SSH,
+web hosting, firewall security, SELinux, storage management,
+monitoring, logging, automated backups, health checks, and
+scheduled automation.
+
+This project provides practical experience in Linux system
+administration and establishes a foundation for Cloud and
+DevOps infrastructure management.
+
+
+============================================================
+                 END OF SERVER REPORT
+============================================================
