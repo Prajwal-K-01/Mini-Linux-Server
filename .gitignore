@@ -1,0 +1,79 @@
+# ============================================================
+# Mini Linux Server Setup - Git Ignore
+# ============================================================
+
+# ---------- OS / Editor Files ----------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# ---------- Environment / Secrets ----------
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.crt
+*.csr
+secrets/
+credentials/
+
+# ---------- Logs ----------
+*.log
+logs/
+*.log.*
+/server-data/logs/
+
+# ---------- Temporary / Runtime Files ----------
+*.tmp
+*.temp
+*.pid
+*.lock
+*.cache
+tmp/
+temp/
+
+# ---------- Backup Files ----------
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.bak
+*.old
+*.backup
+
+# ---------- Generated Reports ----------
+# Ignore generated reports if they contain machine-specific data
+# reports/*.txt
+
+# ---------- Runtime Server Data ----------
+/server-data/backups/
+/server-data/logs/
+
+# ---------- Shell Script Temporary Files ----------
+*.out
+*.err
+
+# ---------- Python Cache (if used later) ----------
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# ---------- Generated System Files ----------
+*.dump
+*.core
+
+# ---------- Local VM Files ----------
+*.vmem
+*.vmdk
+*.nvram
+*.vmx~
+*.lck
+
+# ---------- Sensitive Configuration ----------
+config/local/
+config/secrets/
