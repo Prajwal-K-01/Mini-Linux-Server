@@ -1,0 +1,193 @@
+==========================================================
+             MINI RHEL SERVER - USER CONFIGURATION
+==========================================================
+
+Project       : Mini Linux Server Setup
+Operating     : Red Hat Enterprise Linux (RHEL)
+Configuration : User and Group Management
+Author        : Prajwal K
+==========================================================
+
+
+1. SERVER ADMINISTRATOR
+-----------------------
+
+Username      : serveradmin
+Home Directory: /home/serveradmin
+Shell         : /bin/bash
+Primary Group : serveradmin
+Secondary     : administrators, wheel
+Role          : Server Administrator
+
+Responsibilities:
+- Server administration
+- Service management
+- User management
+- Security configuration
+- System monitoring
+- Backup management
+
+Privileges:
+- Sudo access
+- Administrative commands
+- Service management
+
+
+2. DEVELOPER
+------------
+
+Username      : developer
+Home Directory: /home/developer
+Shell         : /bin/bash
+Primary Group : developer
+Secondary     : developers
+Role          : Application Developer
+
+Responsibilities:
+- Application files
+- Web application data
+- Application testing
+- Application directory management
+
+Access:
+- /server-data/application
+- User home directory
+
+Restricted From:
+- System administration
+- Backup directory
+- Critical system configuration
+
+
+3. BACKUP USER
+--------------
+
+Username      : backupuser
+Home Directory: /home/backupuser
+Shell         : /bin/bash
+Primary Group : backupuser
+Secondary     : backup
+Role          : Backup Administrator
+
+Responsibilities:
+- Backup operations
+- Backup file management
+- Backup verification
+
+Access:
+- /server-data/backups
+- User home directory
+
+Restricted From:
+- Application administration
+- System configuration
+- Unauthorized system files
+
+
+4. GROUP CONFIGURATION
+----------------------
+
+Group Name       : administrators
+Purpose          : Server administration
+Members          : serveradmin
+
+Group Name       : developers
+Purpose          : Application development
+Members          : developer
+
+Group Name       : backup
+Purpose          : Backup management
+Members          : backupuser
+
+Group Name       : wheel
+Purpose          : Administrative sudo access
+Members          : serveradmin
+
+
+5. DIRECTORY ACCESS
+-------------------
+
+Directory                  Owner              Group
+--------------------------------------------------------------
+/server-data               root               root
+/server-data/application   developer          developers
+/server-data/backups       backupuser         backup
+/server-data/logs          root               root
+
+
+6. SECURITY POLICY
+------------------
+
+Password Authentication:
+Enabled for configured local users
+
+Administrative Access:
+Restricted through sudo
+
+Root Login:
+Used only for administrative operations
+
+SSH Access:
+Configured for remote administration
+
+SELinux:
+Enforcing
+
+Firewall:
+Enabled
+
+
+7. USER MANAGEMENT COMMANDS
+---------------------------
+
+Create administrator:
+useradd -m -s /bin/bash serveradmin
+
+Create developer:
+useradd -m -s /bin/bash developer
+
+Create backup user:
+useradd -m -s /bin/bash backupuser
+
+Add administrator to wheel:
+usermod -aG wheel serveradmin
+
+Add administrator to administrators:
+usermod -aG administrators serveradmin
+
+Add developer to developers:
+usermod -aG developers developer
+
+Add backup user to backup:
+usermod -aG backup backupuser
+
+
+8. VERIFICATION COMMANDS
+------------------------
+
+Check user:
+id serveradmin
+
+Check developer:
+id developer
+
+Check backup user:
+id backupuser
+
+Check groups:
+getent group administrators
+getent group developers
+getent group backup
+
+Check logged-in users:
+who
+
+Check user information:
+getent passwd serveradmin
+getent passwd developer
+getent passwd backupuser
+
+
+==========================================================
+                 END OF USER CONFIGURATION
+==========================================================
