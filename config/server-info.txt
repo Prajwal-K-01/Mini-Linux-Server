@@ -1,0 +1,326 @@
+==========================================================
+              MINI RHEL SERVER INFORMATION
+==========================================================
+
+Project Name : Mini Linux Server Setup
+Operating System : Red Hat Enterprise Linux (RHEL)
+Server Type : Mini Linux Web Server
+Environment : VMware Workstation Virtual Machine
+Author : Prajwal K
+
+==========================================================
+1. SYSTEM INFORMATION
+==========================================================
+
+Hostname        : mini-server
+Operating System: Red Hat Enterprise Linux
+Kernel Version  : <CHECK WITH: uname -r>
+Architecture    : <CHECK WITH: uname -m>
+CPU Cores       : <CHECK WITH: nproc>
+RAM             : <CHECK WITH: free -h>
+Disk Space      : <CHECK WITH: df -h>
+System Uptime   : <CHECK WITH: uptime -p>
+
+
+==========================================================
+2. NETWORK CONFIGURATION
+==========================================================
+
+Network Manager : NetworkManager
+Network Interface: <CHECK WITH: nmcli device status>
+
+IP Address      : <CHECK WITH: hostname -I>
+Subnet Mask     : <CHECK WITH: ip addr>
+Default Gateway : <CHECK WITH: ip route>
+DNS Server      : <CHECK WITH: cat /etc/resolv.conf>
+
+Network Status  : ONLINE
+
+
+==========================================================
+3. SERVER SERVICES
+==========================================================
+
+SSH Service     : sshd
+SSH Port        : 22
+SSH Status      : Enabled
+
+Web Server      : Apache HTTP Server
+Apache Service  : httpd
+HTTP Port       : 80
+Apache Status   : Enabled
+
+Firewall        : firewalld
+Firewall Status : Enabled
+
+Security        : SELinux
+SELinux Mode    : Enforcing
+
+
+==========================================================
+4. FIREWALL CONFIGURATION
+==========================================================
+
+Allowed Services:
+
+- SSH
+- HTTP
+
+Allowed Ports:
+
+22/tcp  - SSH
+80/tcp  - HTTP
+
+Firewall Command:
+
+firewall-cmd --list-all
+
+
+==========================================================
+5. WEB SERVER CONFIGURATION
+==========================================================
+
+Web Server      : Apache HTTP Server
+
+Document Root:
+ /var/www/html
+
+Main Web Page:
+ /var/www/html/index.html
+
+Website URL:
+ http://<SERVER-IP>
+
+Test Command:
+
+curl http://localhost
+
+
+==========================================================
+6. STORAGE CONFIGURATION
+==========================================================
+
+Main Server Data:
+ /server-data
+
+Application Data:
+ /server-data/application
+
+Backup Data:
+ /server-data/backups
+
+Server Logs:
+ /server-data/logs
+
+
+==========================================================
+7. USER CONFIGURATION
+==========================================================
+
+Administrator:
+ serveradmin
+
+Developer:
+ developer
+
+Backup User:
+ backupuser
+
+Administrator Groups:
+ administrators
+ wheel
+
+Developer Group:
+ developers
+
+Backup Group:
+ backup
+
+
+==========================================================
+8. SECURITY CONFIGURATION
+==========================================================
+
+SELinux:
+ Enforcing
+
+Firewall:
+ Enabled
+
+SSH:
+ Enabled
+
+Sudo:
+ Configured for serveradmin
+
+Root Access:
+ Restricted to administrative operations
+
+
+==========================================================
+9. MONITORING
+==========================================================
+
+CPU Monitoring:
+ top
+ htop
+
+Memory Monitoring:
+ free -h
+
+Disk Monitoring:
+ df -h
+ du -sh
+
+Process Monitoring:
+ ps aux
+
+Network Monitoring:
+ ss -tulpn
+
+Service Monitoring:
+ systemctl status <service>
+
+
+==========================================================
+10. LOG MANAGEMENT
+==========================================================
+
+System Logs:
+ /var/log/
+
+Apache Logs:
+ /var/log/httpd/
+
+Apache Access Log:
+ /var/log/httpd/access_log
+
+Apache Error Log:
+ /var/log/httpd/error_log
+
+Health Report:
+ /server-data/logs/health-report.txt
+
+Backup Log:
+ /server-data/logs/backup.log
+
+
+==========================================================
+11. BACKUP CONFIGURATION
+==========================================================
+
+Backup Source:
+ /server-data/application
+
+Backup Destination:
+ /server-data/backups
+
+Backup Format:
+ .tar.gz
+
+Backup Script:
+ scripts/backup.sh
+
+Backup Schedule:
+ Configured using cron
+
+Number of Backups Retained:
+ 5
+
+
+==========================================================
+12. HEALTH MONITORING
+==========================================================
+
+Health Check Script:
+ scripts/health-check.sh
+
+Health Report:
+ /server-data/logs/health-report.txt
+
+The health check monitors:
+
+- Hostname
+- Operating System
+- Kernel
+- Uptime
+- CPU
+- Memory
+- Disk
+- Network
+- SSH
+- Apache
+- Firewall
+- SELinux
+- Listening Ports
+- Server Data
+
+
+==========================================================
+13. IMPORTANT COMMANDS
+==========================================================
+
+System Information:
+ hostnamectl
+
+Network:
+ ip addr
+ ip route
+ nmcli device status
+
+Services:
+ systemctl status sshd
+ systemctl status httpd
+ systemctl status firewalld
+
+Firewall:
+ firewall-cmd --list-all
+
+Security:
+ sestatus
+ getenforce
+
+Storage:
+ df -h
+ du -sh /server-data
+
+Ports:
+ ss -tulpn
+
+Logs:
+ journalctl
+ journalctl -u sshd
+ journalctl -u httpd
+
+
+==========================================================
+14. PROJECT SCRIPTS
+==========================================================
+
+Backup Script:
+ scripts/backup.sh
+
+Health Check:
+ scripts/health-check.sh
+
+
+==========================================================
+15. SERVER STATUS
+==========================================================
+
+Hostname       : CONFIGURED
+Network        : ONLINE
+SSH            : RUNNING
+Apache         : RUNNING
+Firewall       : RUNNING
+SELinux        : ENFORCING
+Storage        : CONFIGURED
+Backup         : CONFIGURED
+Monitoring     : CONFIGURED
+
+Overall Status : OPERATIONAL
+
+
+==========================================================
+                  END OF SERVER INFORMATION
+==========================================================
